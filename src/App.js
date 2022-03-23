@@ -1,4 +1,18 @@
-import logo from './logo.svg';
+import Message from "./components/Message/Message";
+import './App.css';
+
+const textToMessage = 'Text passed to message';
+
+function App() {
+  return (
+    <div className="App">
+      <Message textToDisplay = {textToMessage}/>
+    </div>
+  );
+}
+
+
+/*import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -20,6 +34,6 @@ function App() {
       </header>
     </div>
   );
-}
+} */
 
 export default App;
