@@ -1,0 +1,17 @@
+.messageListRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.messageText {
+    width: 200px;
+    text-align: left;
+}
+
+.messageAuthor {
+    width: 100px;
+    margin-right: 10px;
+    text-align: left;
+}

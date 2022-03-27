@@ -1,0 +1,20 @@
+.formContainer {
+    text-align: center;
+}
+
+.inputText {
+
+}
+
+.inputText:focus {
+    outline: none;
+}
+
+.inputButton {
+    margin-right: 100px;
+}
+
+.inputButton:hover {
+    color: crimson;
+    cursor: pointer;
+}

@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+.messagesHeader {
+  margin-bottom: 9px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
