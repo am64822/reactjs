@@ -1,0 +1,40 @@
+.chatsHeader {
+  margin-top: 20px;
+  margin-bottom: 23px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;  
+}
+
+.chat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+  
+.chatList {
+  width: 24%;
+  min-width: 200px;
+  outline: 1px solid black;
+}
+  
+.others {
+  width: 75%;
+  min-width: 355px;
+  outline: 1px solid black;
+}
+  
+.messagesHeader {
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.noChatSelected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

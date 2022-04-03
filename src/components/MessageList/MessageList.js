@@ -1,7 +1,6 @@
 import './MessageList.css';
 
 const MessageList = ({messages}) => {
-    //console.log(messages);
     return messages.map((message) => 
     <div className='messageListRow' key={message.id}>
       <div className='messageAuthor'>{message.author}</div>

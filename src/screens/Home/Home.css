@@ -1,0 +1,15 @@
+.interimHeader {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.homeNav {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.homeNavLink {
+    margin: 0px 5px;
+}
