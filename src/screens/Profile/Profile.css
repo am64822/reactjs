@@ -1,6 +1,11 @@
 .interimHeader {
     margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 1.5rem;
     font-weight: bold;
     text-align: center;
+}
+
+.checkBox {
+    margin-right: 20px;
 }
