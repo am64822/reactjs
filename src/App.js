@@ -3,20 +3,25 @@ import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Chats from "./screens/Chats/Chats";
 import { BrowserRouter, Route, Routes, NavLink, Navigate} from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/index';
+import { useDispatch, useSelector } from 'react-redux';
 
+function isActiveColor(targetColor) {
+  return ({ isActive }) => ({ color: isActive ? targetColor : ''});
+}
+
+// начальное состояние чатов - в src/store/chats/reducer.js
+// начальное состояние сообщений - в src/store/messages/reducer.js
+// начальное состояние профиля - в src/store/profile/reducer.js
 
 function App() {
   return (
-    <Provider store={store}>
       <BrowserRouter>
         <div className='appHeader'>
           <div className='appHeaderLeft'>
             <ul>
-              <li><NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'crimson' : ''})}>Home</NavLink></li>
-              <li><NavLink to='/chats' style={({ isActive }) => ({ color: isActive ? 'crimson' : ''})}>Chats</NavLink></li>
-              <li><NavLink to='/profile' style={({ isActive }) => ({ color: isActive ? 'crimson' : ''})}>Profile</NavLink></li>
+              <li><NavLink to='/' style={isActiveColor('crimson')}>Home</NavLink></li>
+              <li><NavLink to='/chats' style={isActiveColor('crimson')}>Chats</NavLink></li>
+              <li><NavLink to='/profile' style={isActiveColor('crimson')}>Profile</NavLink></li>
             </ul>
           </div>
           <div className='appHeaderRight'>Chat App</div>
@@ -32,7 +37,6 @@ function App() {
         </Routes>
 
       </BrowserRouter>
-    </Provider>
   );
 }
 

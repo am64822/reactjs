@@ -1,63 +1,93 @@
 //relative path to scr: "../.."
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import MessageList from "../../components/MessageList/MessageList";
 import MessageForm from "../../components/MessageForm/MessageForm";
 import ChatList from "../../components/ChatList/ChatList";
 import './Chats.css';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
+import { addMessage, initMessagesOfChat } from '../../store/messages/actions';
+import { addChat } from '../../store/chats/actions';
+import { selectChats } from '../../store/chats/selectors';
+import { selectMessages } from '../../store/messages/selectors';
 
-const chats = [{id: '0', name: 'chat 0'}, {id: '1', name: 'chat 1'}, 
-{id: '2', name: 'chat 2'}, {id: '3', name: 'chat 3'}];
-
-let initMessages = {};
-chats.forEach((item, index, array) => {
-  initMessages[index] = []; 
-});
 
 function Chats() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const chats = useSelector(selectChats, shallowEqual); // нужно для проверки на предмет задвоения имени (для нового чата)
+  const messagesOfChat = useSelector(selectMessages, shallowEqual)[id]; // сообщения чата с указанным id
   
   let chatSelected; // 1 - selected and exists, 2 - selected and does not exist, 3 - not selected
-  if (typeof(id) == 'undefined') {
+  if (!id) {
     chatSelected = 3;
-  } else if (typeof(initMessages[id]) == 'undefined') {
+  } else if (!messagesOfChat) {
     chatSelected = 2;
   } else {
     chatSelected = 1;
   }
 
-  const [messageList, setMessageList] = useState(initMessages);
-
-  const addMessage = (newText) => {
+  const addMessageOnSubmit = (newText) => {
     const newMsg = {id: new Date().valueOf(), text: newText, author: "me"};
-    setMessageList({ ...messageList, [id]: [newMsg, ...messageList[id]]});
+    dispatch(addMessage(newMsg, id));
   }; 
+
+  const formOnSubmit = (e) => { // добавление чата. Удаление - см. ChatList
+    e.preventDefault();
+    const chatName = e.target.newChatName;
+    let nameExistsFlag = false;
+
+    if (chatName.value == '') {return;} // имя не задано - выход
+    chats.forEach((item, index, array) => { // проверка на зодвоение имени
+      if (item.name == chatName.value) {
+        nameExistsFlag = true;
+      }
+    });
+
+    if (nameExistsFlag) { // задвоение имени - выход
+      chatName.value = '';
+      return;
+    }
+
+    const chatID = Date.now();
+    dispatch(addChat(chatID, chatName.value)); 
+    dispatch(initMessagesOfChat(chatID)); // пустой набор сообщений для новго чата
+
+    chatName.value = '';
+  }
+
 
   useEffect(() => {
     if (chatSelected !== 1) { return; }
-    if (messageList[id].length === 0) { return; }
-    if (messageList[id][0].author === 'robot') { return; }
+    if (messagesOfChat.length === 0) { return; }
+    if (messagesOfChat[0].author === 'robot') { return; }
     const newMsg = {id: new Date().valueOf(), text: 'reply from robot', author: "robot"};
-    setMessageList({ ...messageList, [id]: [newMsg, ...messageList[id]]});
-  }, [messageList]);
+    dispatch(addMessage(newMsg, id));
+  }, [messagesOfChat]);
 
   if (chatSelected === 2) {
     return (<Navigate to='/chats' replace/>);
   }
 
+  //console.log(messagesOfChat);
   return (
     <>
       <div className="chatsHeader">Chats</div>
       <div className="chat">
           <div className='chatList'>
-            <ChatList chats={chats}></ChatList>
+            <div>New chat</div> 
+            <form onSubmit={formOnSubmit}>
+              <input type='text' name='newChatName'></input>
+              <button type='submit' className='buttonNewChat'>Ctreate new chat</button>
+            </form>
+            <ChatList></ChatList>
           </div>
           {(chatSelected === 1) && (<div className='others'>
-            <MessageForm onSubmit={addMessage}/>
+            <MessageForm onSubmit={addMessageOnSubmit}/>
             <div className='messageListContainer'>
               <hr></hr>
               <div className='messagesHeader'>Messages</div>
-              <MessageList messages={messageList[id]}/>
+              <MessageList messages={messagesOfChat}/>
             </div>
           </div>)}
           {(chatSelected === 3) && (<div className='others'>

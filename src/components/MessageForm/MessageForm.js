@@ -7,7 +7,6 @@ const MessageForm = ({ onSubmit }) => {
     const [value, setValue] = useState('');
     const textFieldRef = useRef();
 
-
     useEffect(() => {
             if (document.activeElement !== textFieldRef.current) {
                 //console.log('here');
