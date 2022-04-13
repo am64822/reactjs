@@ -17,3 +17,16 @@ export const initMessagesOfChat = (chatID) => ({
     type: INIT_MESSAGES_OF_CHAT,
     payload: chatID
 });
+
+export const addMessageWithReply = (newMessage, chatID) => (dispatch) => {
+    dispatch(addMessage(newMessage, chatID));
+    //console.log(newMessage, chatID);
+
+    if (newMessage.author !== 'robot') {
+        // без setTimeout все срабатывает настролько быстро, что задваивается значение new Date().valueOf() для сообщений от 'me'
+        // и от робота. Пришлось добавить 'rb' в начале id для сообщений от робота, чтобы id отличался
+        let robotReply = {id: 'rb'+ new Date().valueOf(), text: 'reply from robot', author: "robot"};
+        dispatch(addMessage(robotReply, chatID));
+        //console.log(robotReply.text, robotReply.author);
+    }
+}
