@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import { profileReducer } from "./profile/reducer";
 import { chatsReducer } from "./chats/reducer";
 import { messagesReducer } from "./messages/reducer";
+import { articlesReducer } from "./articles/reducer";
 
 // создаем объект конфигурации для persist
 const persistConfig = {
@@ -16,7 +17,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     profile: profileReducer,
     chats: chatsReducer,
-    messages: messagesReducer
+    messages: messagesReducer,
+    articles: articlesReducer
 });
 
 // оборачиваем редьюсеры в persist
