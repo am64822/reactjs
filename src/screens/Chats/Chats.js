@@ -6,10 +6,11 @@ import ChatList from "../../components/ChatList/ChatList";
 import './Chats.css';
 import { useEffect } from "react";
 import { useParams, Navigate } from "react-router-dom";
-import { addMessage, initMessagesOfChat } from '../../store/messages/actions';
+import { addMessage, addMessageWithReply, initMessagesOfChat } from '../../store/messages/actions';
 import { addChat } from '../../store/chats/actions';
 import { selectChats } from '../../store/chats/selectors';
 import { selectMessages } from '../../store/messages/selectors';
+import { MessageFormContainer } from '../../components/MessageForm/MessageFormContainer';
 
 
 function Chats() {
@@ -29,7 +30,7 @@ function Chats() {
 
   const addMessageOnSubmit = (newText) => {
     const newMsg = {id: new Date().valueOf(), text: newText, author: "me"};
-    dispatch(addMessage(newMsg, id));
+    dispatch(addMessageWithReply(newMsg, id));
   }; 
 
   const formOnSubmit = (e) => { // добавление чата. Удаление - см. ChatList
@@ -57,13 +58,13 @@ function Chats() {
   }
 
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (chatSelected !== 1) { return; }
     if (messagesOfChat.length === 0) { return; }
     if (messagesOfChat[0].author === 'robot') { return; }
     const newMsg = {id: new Date().valueOf(), text: 'reply from robot', author: "robot"};
     dispatch(addMessage(newMsg, id));
-  }, [messagesOfChat]);
+  }, [messagesOfChat]);*/
 
   if (chatSelected === 2) {
     return (<Navigate to='/chats' replace/>);
@@ -75,7 +76,7 @@ function Chats() {
       <div className="chatsHeader">Chats</div>
       <div className="chat">
           <div className='chatList'>
-            <div>New chat</div> 
+            <div>New chat<br></br>(enter the name into filed below<br></br>and press "Create new chat")</div> 
             <form onSubmit={formOnSubmit}>
               <input type='text' name='newChatName'></input>
               <button type='submit' className='buttonNewChat'>Ctreate new chat</button>
@@ -83,7 +84,7 @@ function Chats() {
             <ChatList></ChatList>
           </div>
           {(chatSelected === 1) && (<div className='others'>
-            <MessageForm onSubmit={addMessageOnSubmit}/>
+            <MessageFormContainer onSubmit={addMessageOnSubmit}/>
             <div className='messageListContainer'>
               <hr></hr>
               <div className='messagesHeader'>Messages</div>

@@ -4,6 +4,7 @@ import Profile from "./screens/Profile/Profile";
 import Chats from "./screens/Chats/Chats";
 import { BrowserRouter, Route, Routes, NavLink, Navigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Articles } from './screens/Articles/Articles';
 
 function isActiveColor(targetColor) {
   return ({ isActive }) => ({ color: isActive ? targetColor : ''});
@@ -22,6 +23,7 @@ function App() {
               <li><NavLink to='/' style={isActiveColor('crimson')}>Home</NavLink></li>
               <li><NavLink to='/chats' style={isActiveColor('crimson')}>Chats</NavLink></li>
               <li><NavLink to='/profile' style={isActiveColor('crimson')}>Profile</NavLink></li>
+              <li><NavLink to='/articles' style={isActiveColor('crimson')}>Articles</NavLink></li>
             </ul>
           </div>
           <div className='appHeaderRight'>Chat App</div>
@@ -33,6 +35,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/chats' element={<Chats />} />
           <Route path='/chats/:id' element={<Chats />} />
+          <Route path='/articles' element={<Articles />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Routes>
 
