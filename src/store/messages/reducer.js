@@ -16,12 +16,10 @@ export const messagesReducer = (state = messagesInitialState, {type, payload}) =
             return {...state, [chatID]: [messageText, ...state[chatID]]};
         }
         case DELETE_MESSAGES_OF_CHAT: {
-            //console.log('delete message of chat ' + payload);
             delete state[+payload];
             return state;
         }
         case INIT_MESSAGES_OF_CHAT: {
-            console.log(payload);
             return {...state, [payload]: []}
         }        
         default:

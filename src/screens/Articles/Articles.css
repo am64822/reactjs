@@ -1,0 +1,35 @@
+.interimHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.interimHeader button {
+    margin-left: 20px;
+    display: inline-block;
+    width: 60px;
+    height: 25px;
+}
+
+.interimHeader button:hover {
+    color: crimson;
+}
+
+
+.loading {
+    color: blue;
+}
+
+.error {
+    color: red;
+}
+
+.homeNav {
+    margin-top: 10px;
+    text-align: center;
+}
+
