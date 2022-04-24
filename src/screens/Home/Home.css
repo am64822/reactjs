@@ -13,3 +13,13 @@
 .homeNavLink {
     margin: 0px 5px;
 }
+
+.signUpLink {
+    margin-top: 44px;
+    text-align: center;
+}
+
+.errorMsg {
+    color: red;
+    text-align: center;
+}
