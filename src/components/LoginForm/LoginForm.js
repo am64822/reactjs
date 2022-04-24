@@ -29,7 +29,7 @@ export const LoginForm = ({ onSubmit, isSignUp }) => {
                 <input type='password' value={pass} onChange={handleChangePass}/>
                 <div  className='label'>Password</div>
                     <div className='brakeRow'></div>
-                <input type='submit' className='submitButton' value={isSignUp ? 'Signup' : 'Login'} />
+                <input type='submit' data-testid='submit' className='submitButton' value={isSignUp ? 'Signup' : 'Login'} />
             </form>
 
         </>

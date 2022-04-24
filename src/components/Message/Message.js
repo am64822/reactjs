@@ -1,7 +1,7 @@
 import './Message.css';
 
 const Message = ({ textToDisplay }) => {
-    return (
+  return (
         <span className='messageContainer'>{textToDisplay}</span>
     );
   }
